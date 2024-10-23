@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./main.css">
+    <script src="https://smtpjs.com/v3/smtp.js"></script>    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Michael Guidelli</title>
+    <style>
+        body {
+            background: black;
+            overflow-x: hidden;
+        }
+        .card {
+            margin-bottom: 20px;
+        }
+        .card-body {
+            padding: 20px;
+        }
+    </style>
+</head>
+<body style="background-color: black;">
+    
+    <div class="cursor-hue" id="cursorHue"></div>
+ 
+    <nav class="navbar navbar-expand-md navbar-dark p-5">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <h2 class="text-light font-weight-bold">
+                    Portfolio<span style="color: #9518bf; font-size: 50px;">.</span>
+                </h2>
+            </a>
+            <div class="d-none d-md-flex mx-auto">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link text-light mx-3" href="#about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light mx-3" href="#project">Project</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light mx-3" href="#skills">Skills</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-light mx-3" href="#resume">Experience</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex justify-content-around">
+                <button id="hire-me-button" class="btn me-2" style="min-width: 120px; max-width: fit-content;" onclick="hireMeButton()"></button>
+                <button id="toggle-language" class="btn d-flex align-item-center justify-content-center bold" style="width: 40px;" onclick="toggleLanguage()">EN</button>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 60px;">
+        <div class="modal-dialog custom-modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Book a Google Meet</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form id="meetForm">
+                    <div class="modal-body">
+                        <!-- User Type Selection -->
+                        <div class="mb-3">
+                            <label for="userType" class="form-label">I am a</label>
+                            <select class="form-control" id="userType" required>
+                                <option value="" disabled selected>Select an option</option>
+                                <option value="recruiter">Recruiter</option>
+                                <option value="privateClient">Private Client</option>
+                            </select>
+                        </div>
+                
+                        <!-- Name -->
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                        </div>
+                
+                        <!-- Company Name (hidden for private clients) -->
+                        <div class="mb-3" id="companyDiv">
+                            <label for="company" class="form-label">Company Name</label>
+                            <input type="text" class="form-control" id="company" placeholder="Enter company name" required>
+                        </div>
+                
+                        <!-- Email -->
+                        <div class="mb-3">
+                            <label for="email" class="form-label">Your Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                        </div>
+                
+                        <!-- Message -->
+                        <div class="mb-3">
+                            <label for="message" class="form-label">Message</label>
+                            <textarea class="form-control" id="message" placeholder="Reason for booking" rows="3" required></textarea>
+                        </div>
+                
+                        <!-- Date and Time -->
+                        <div class="mb-3">
+                            <label for="meetTime" class="form-label">Meeting Date & Time</label>
+                            <input type="datetime-local" class="form-control" id="meetTime" required>
+                        </div>
+                    </div>
+                
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Book Meeting</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <section id="home" style="margin-bottom: 200px;" class="p-5">   
+        <div class="container-fluid mt-5 px-5">
+            <div class="row">
+                <div class="col-md-6 d-flex flex-column">
+                    <h1 class="text-light mt-5 responsive-heading">I'm Michael Guidelli, <br> a Full Stack Developer</h1>
+            
+                    
+                    <p class="text-light mt-1">I design software and stuff for the web.</p>
+                    <button class="btn mt-1" style="width: 200px;"><a href="#contact" style="text-decoration: none; color: white;">Get in touch</a></button>
+                    <div class="d-flex flex-column">
+                        <div class="second-line"></div>
+                        <div class="d-flex flex-row align-items-center">
+                            <p class="text-light mt-3 me-2">Let's connect!</p>
+                                <a href="https://github.com/MichaelGuidelli" target="_blank"><img class="icon icon-white me-2" src="./assets/github-icon.svg" alt=""></a>
+                                <a  href="https://www.linkedin.com/in/michael-guidelli-1ba93a279/" target="_blank"><img class="icon icon-white me-2" src="./assets/linkedin-icon.svg" alt=""></a>
+                                <a  href="" target="_blank"><img class="icon icon-white" src="./assets/stackoverflow-icon.svg" alt=""></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="col-md-6 d-flex justify-content-center">
+                    <img class="purple-orb" src="./assets/gradient-mesh-sphere-dark-background.png" style="width: 100%; max-width: 500px; height: auto;" alt="">
+                </div> -->
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="text-center" style="margin-bottom: 200px;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-12 col-sm-12">
+                    <h2 class="text-light">About</h2>
+                    <p class="text-light text-center text-md-start py-3 px-2">
+                        Hi, I'm a <span id="my-age"></span>-year-old web developer based in Naples.
+                        I’m passionate about creating user-friendly and responsive websites. 
+                        With a keen eye for design and a knack for problem-solving, 
+                        I’m dedicated to delivering innovative web solutions. 
+                        Let’s connect if you’re looking for a skilled developer to bring your digital projects to life!
+                    </p>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="project" style="margin-bottom: 200px;">
+        <div class="col-12 text-light d-flex justify-content-center mb-4">
+            <h2>Projects</h2>
+        </div>
+
+        <div class="container mt-5">
+            <div class="row justify-content-center">
+              <div class="col-md-4 d-flex justify-content-center mb-5">
+                <div class=" card-custom" style="background-image: url('assets/acquarioferraris.png');">
+                  <div class="card-overlay">
+                    <h5 class="card-title">Acquario Ferraris</h5>
+                    <a href="https://github.com/RiuHz/Aquarium-Monitoring" class="btn btn-light card-btn" target="_blank">
+                        Visit the Github page!
+                    </a>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="col-md-4 d-flex justify-content-center mb-5">
+                <div class="card-custom" style="background-image: url('assets/neural-network.jpg');">
+                  <div class="card-overlay">
+                    <h5 class="card-title">Simple Neural Network</h5>
+                    <a href="https://github.com/MichaelGuidelli/Rete-Neurale" class="btn btn-light card-btn" target="_blank">
+                        Read the paper!
+                    </a>
+                  </div>
+                </div>
+              </div>
+        
+              <div class="col-md-4 d-flex justify-content-center mb-5">
+                <div class="card-custom">
+                  <div class="card-overlay">
+                    <h5 class="card-title">Coming soon...</h5>
+                    <!-- <button class="btn btn-light card-btn">Learn More</button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+        </body>
+    
+    </section>
+
+    <section id="skills" style="margin-bottom: 200px;">
+        <div class="col-md-12 col-sm-4 text-light d-flex justify-content-center">
+            <h2>My Skills</h2>
+        </div>
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-4">
+                    <div class="card text-light h-100" style="max-height: 180px;">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title d-flex align-item-center me-2">HTML</h5>
+                            <p class="card-text">5 years, countless projects.</p>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 90%; background: #9518bf;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-light h-100" style="max-height: 180px;">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title d-flex align-item-center me-2">CSS</h5>
+                            <p class="card-text">5 years, countless projects.</p>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 90%; background: #9518bf;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-light h-100" style="max-height: 180px;">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title">JAVASCRIPT</h5>
+                            <p class="card-text">3 years.</p>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 60%; background: #9518bf;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-light h-100" style="max-height: 180px;">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title">PYTHON</h5>
+                            <p class="card-text">4 years.</p>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 70%; background: #9518bf;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-light h-100" style="max-height: 180px;">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title">PHP</h5>
+                            <p class="card-text">2 years.</p>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 70%; background: #9518bf;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-light h-100" style="max-height: 180px;">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title">ANGULAR</h5>
+                            <p class="card-text">2 months.</p>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 20%; background: #9518bf;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-light h-100" style="max-height: 180px;">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title">Bootstrap</h5>
+                            <p class="card-text">1 year.</p>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 70%; background: #9518bf;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-light h-100" style="max-height: 180px;">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title">MySQL</h5>
+                            <p class="card-text">2 years.</p>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 70%; background: #9518bf;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="card text-light h-100" style="max-height: 180px;">
+                        <div class="card-body d-flex flex-column justify-content-between">
+                            <h5 class="card-title">Visual Studio Code</h5>
+                            <p class="card-text">Forever, countless projects.</p>
+                            <div class="progress">
+                                <div class="progress-bar" role="progressbar" style="width: 70%; background: #9518bf;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+
+    <section id="resume" style="margin-bottom: 200px;">
+        <div class="col-md-12 col-sm-4 text-light d-flex justify-content-center"><h2>Experience</h2></div>
+        <div class="container">
+            <ul class="timeline text-light">
+                <li class="timeline-item mb-5">
+                  <h5 class="fw-bold">Angular Web Developer</h5>
+                  <p class="mb-2">LAF SCHOOL</p>
+                  <p class="mb-2">2024, 2 months</p>
+                </li>
+            
+                <li class="timeline-item mb-5">
+                  <h5 class="fw-bold">High School Diploma</h5>
+                  <p class="mb-2 fw-bold">2023</p>
+                </li>
+              </ul>
+        </div>
+    </section>
+
+    <section id="contact" style="margin-bottom: 200px;">
+        <div class="col-md-12 col-sm-4 text-light d-flex justify-content-center"><h2>Get in touch</h2></div>
+        <div class="container d-flex justify-content-center align-items-center">
+            <div class="col-md-6">
+                <form class="text-light" id="contact-form" onsubmit="sendEmail(event); return false;">
+                    <div class="mb-3">
+                        <label for="name" class="form-label">Name</label>
+                        <input type="text" class="form-control" id="contact-form-user-name" name="name" placeholder="Enter your name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" class="form-control" id="contact-form-user-email" name="email" placeholder="Enter your email" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="message" class="form-label">Message</label>
+                        <textarea class="form-control" id="contact-form-user-message" name="message" rows="4" placeholder="Enter your message" required style="resize: none;"></textarea>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary w-100 mb-2">Send</button>
+                        <p id="form-response"></p>
+                    </div>
+                    <p id="form-response-text"></p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="d-flex flex-column justify-content-center align-items-center col-md-12">
+        <p class="col-12 text-center">This was built with HTML, BootStrap, CSS and Javascript.</p>
+        <p class="col-12 text-center">@ <span id="year-site"></span> Michael Guidelli Portfolio. All rights reserved.</p>
+    </footer>
+    <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,208 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
+}
+
+.cursor-hue {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, #8e37ad, #320641, transparent);
+    border-radius: 50%;
+    pointer-events: none;
+    filter: blur(10px);
+    transform: translate(-50%, -50%);
+    transition: opacity 0.5s ease-out, background 0.5s ease-out;
+    z-index: -100;
+}
+
+.cursor-hue.fade-out {
+    opacity: 0;
+    background: radial-gradient(circle, transparent, transparent);
+}
+
+a {
+    font-size: 18px !important;
+}
+
+.second-line {
+    background-color: gray;
+    width: 400px;
+    height: 1px;
+    margin-top: 200px;
+}
+
+.icon-white {
+    filter: brightness(0) saturate(100%) invert(100%) sepia(98%) saturate(7%) hue-rotate(131deg) brightness(101%) contrast(104%);
+}
+
+.icon {
+    cursor: pointer;
+    width: 25px;
+    height: 25px;
+    object-fit: contain;
+    font-size: 25px;
+}
+
+.btn {
+    background: #9518bf !important;
+    outline: none !important;
+    border: none !important; 
+    color: white !important;
+}
+
+
+.purple-orb {  
+    animation-name: floating;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+    margin-left: 30px;
+    margin-top: 5px;
+}
+    
+@keyframes floating {
+    0% { transform: translate(0,  0px); }
+    50%  { transform: translate(0, 15px); }
+    100%   { transform: translate(0, -0px); }    
+}
+
+.timeline {
+    border-left: 1px solid hsl(0, 0%, 90%);
+    position: relative;
+    list-style: none;
+    }
+    
+    .timeline .timeline-item {
+    position: relative;
+    }
+    
+    .timeline .timeline-item:after {
+    position: absolute;
+    display: block;
+    top: 0;
+    }
+    
+    .timeline .timeline-item:after {
+    background-color: #9518bf;
+    left: -38px;
+    border-radius: 50%;
+    height: 11px;
+    width: 11px;
+    content: "";
+    }
+
+.card {
+    background-color: transparent !important;
+    height: 80% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-body {
+    flex-grow: 1; /* Makes the card body fill the available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.progress {
+    margin-top: auto; /* Ensures the progress bar is at the bottom */
+    height: 5px !important;
+}
+
+/* For WebKit-based browsers */
+::-webkit-scrollbar {
+    width: 3px; /* Width of the scrollbar */
+    background-color: transparent; /* No background color */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #9518bf; /* Purple color for the scrollbar thumb */
+    border-radius: 6px; /* Rounded corners */
+}
+
+@media (max-width: 600px) {
+    #home {
+      padding: 0 !important; /* Remove padding */
+    }
+  }
+
+  .card-custom {
+
+    width: 350px;
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+  }
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
+  .card-btn {
+    margin-top: 1rem;
+  }
+  .card-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-control:focus {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border: none !important;
+    outline: 0;
+    box-shadow: 0 0 0 2px #9518bf !important;
+}
+
+.custom-modal {
+    width: 400px;
+    height: fit-content;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.custom-modal .modal-content {
+    height: 100%;
+}
+
+.responsive-heading {
+    width: 100%;
+    font-size: 30px; /* Default for mobile */
+  }
+
+  /* Tablet screens (768px and up) */
+  @media (min-width: 768px) {
+    .responsive-heading {
+      font-size: 30px;
+    }
+  }
+
+  /* Desktop screens (1200px and up) */
+  @media (min-width: 1200px) {
+    .responsive-heading {
+      font-size: 80px;
+    }
+  }
