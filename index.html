@@ -4,7 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./main.css">
-    <script src="https://smtpjs.com/v3/smtp.js"></script>    
+    <script src="https://smtpjs.com/v3/smtp.js"></script>  
+    <script src="https://apis.google.com/js/api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>  
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>Michael Guidelli</title>
@@ -38,7 +41,7 @@
                         <a class="nav-link text-light mx-3" href="#about">About</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-light mx-3" href="#project">Project</a>
+                        <a class="nav-link text-light mx-3" href="#project">Personal Project</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link text-light mx-3" href="#skills">Skills</a>
@@ -50,67 +53,71 @@
             </div>
             <div class="d-flex justify-content-around">
                 <button id="hire-me-button" class="btn me-2" style="min-width: 120px; max-width: fit-content;" onclick="hireMeButton()"></button>
-                <button id="toggle-language" class="btn d-flex align-item-center justify-content-center bold" style="width: 40px;" onclick="toggleLanguage()">EN</button>
+                <!-- <button id="toggle-language" class="btn d-flex align-item-center justify-content-center bold" style="width: 40px;" onclick="toggleLanguage()">EN</button> -->
             </div>
         </div>
     </nav>
     
-    <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="margin-top: 60px;">
+    <div class="modal fade" id="book-meet-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Book a Google Meet</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="meetForm">
+                <form id="meet-form">
                     <div class="modal-body">
                         <!-- User Type Selection -->
                         <div class="mb-3">
                             <label for="userType" class="form-label">I am a</label>
-                            <select class="form-control" id="userType" required>
+                            <select class="form-control" id="user-type" name="userType" required>
                                 <option value="" disabled selected>Select an option</option>
                                 <option value="recruiter">Recruiter</option>
-                                <option value="privateClient">Private Client</option>
+                                <option value="private-client">Private Client</option>
                             </select>
                         </div>
                 
                         <!-- Name -->
                         <div class="mb-3">
                             <label for="name" class="form-label">Your Name</label>
-                            <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                            <input type="text" class="form-control" id="meet-form-user-name" name="userName" placeholder="Enter your name" required>
                         </div>
                 
                         <!-- Company Name (hidden for private clients) -->
-                        <div class="mb-3" id="companyDiv">
+                        <div class="mb-3" id="company-div">
                             <label for="company" class="form-label">Company Name</label>
-                            <input type="text" class="form-control" id="company" placeholder="Enter company name" required>
+                            <input type="text" class="form-control" id="mett-form-company-name" name="companyName" placeholder="Enter company name">
                         </div>
                 
                         <!-- Email -->
                         <div class="mb-3">
                             <label for="email" class="form-label">Your Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            <input type="email" class="form-control" id="meet-form-user-email" name="userEmail" placeholder="Enter your email" required>
                         </div>
                 
                         <!-- Message -->
                         <div class="mb-3">
                             <label for="message" class="form-label">Message</label>
-                            <textarea class="form-control" id="message" placeholder="Reason for booking" rows="3" required></textarea>
+                            <textarea class="form-control" id="meet-form-user-message" name="userMessage" placeholder="Reason for booking" rows="3" required></textarea>
                         </div>
                 
                         <!-- Date and Time -->
                         <div class="mb-3">
                             <label for="meetTime" class="form-label">Meeting Date & Time</label>
-                            <input type="datetime-local" class="form-control" id="meetTime" required>
+                            <input type="datetime-local" class="form-control" id="meet-date-time" name="meetDateTime" required>
                         </div>
                     </div>
                 
                     <!-- Modal Footer -->
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Book Meeting</button>
+                    <div class="modal-footer d-flex justify-content-between align-items-center">
+                        <p id="meet-form-response" class="text-start mb-0" style="color: red;"></p>
+                        <div>
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Book Meeting</button>
+                        </div>
                     </div>
                 </form>
+                
             </div>
         </div>
     </div>
@@ -119,7 +126,7 @@
         <div class="container-fluid mt-5 px-5">
             <div class="row">
                 <div class="col-md-6 d-flex flex-column">
-                    <h1 class="text-light mt-5 responsive-heading">I'm Michael Guidelli, <br> a Full Stack Developer</h1>
+                    <h1 class="text-light mt-5 responsive-heading" style="min-width: 800px;">I'm Michael Guidelli, <br> a Full Stack Developer</h1>
             
                     
                     <p class="text-light mt-1">I design software and stuff for the web.</p>
@@ -128,16 +135,15 @@
                         <div class="second-line"></div>
                         <div class="d-flex flex-row align-items-center">
                             <p class="text-light mt-3 me-2">Let's connect!</p>
-                                <a href="https://github.com/MichaelGuidelli" target="_blank"><img class="icon icon-white me-2" src="./assets/github-icon.svg" alt=""></a>
-                                <a  href="https://www.linkedin.com/in/michael-guidelli-1ba93a279/" target="_blank"><img class="icon icon-white me-2" src="./assets/linkedin-icon.svg" alt=""></a>
-                                <a  href="" target="_blank"><img class="icon icon-white" src="./assets/stackoverflow-icon.svg" alt=""></a>
+                                <a href="https://github.com/MichaelGuidelli" target="_blank"><img class="icon icon-white me-2" src="./assets/icons/github-icon.svg" alt=""></a>
+                                <a  href="https://www.linkedin.com/in/michael-guidelli-1ba93a279/" target="_blank"><img class="icon me-2" src="./assets/icons/linkedln-icon.svg" alt=""></a>
+                                <a  href="" target="https://stackoverflow.com/users/15848606/michaelf7" target="_blank"><img class="icon me-2" src="./assets/icons/stack-overflow-icon.svg" alt=""></a>
+                                <img src="./assets/icons/gmail-icon.svg" class="icon me-3" alt="" data-bs-toggle="tooltip" title="GuidelliMichael@Gmail.com">
+                                <img src="./assets/icons/mobile-icon.png" class="icon me-2" alt="" data-bs-toggle="tooltip" title="3511542492">
+
                         </div>
                     </div>
                 </div>
-
-                <!-- <div class="col-md-6 d-flex justify-content-center">
-                    <img class="purple-orb" src="./assets/gradient-mesh-sphere-dark-background.png" style="width: 100%; max-width: 500px; height: auto;" alt="">
-                </div> -->
             </div>
         </div>
     </section>
@@ -162,13 +168,13 @@
 
     <section id="project" style="margin-bottom: 200px;">
         <div class="col-12 text-light d-flex justify-content-center mb-4">
-            <h2>Projects</h2>
+            <h2>Personal Projects</h2>
         </div>
 
         <div class="container mt-5">
             <div class="row justify-content-center">
               <div class="col-md-4 d-flex justify-content-center mb-5">
-                <div class=" card-custom" style="background-image: url('assets/acquarioferraris.png');">
+                <div class=" card-custom" style="background-image: url('./assets/images/acquarioferraris.png');">
                   <div class="card-overlay">
                     <h5 class="card-title">Acquario Ferraris</h5>
                     <a href="https://github.com/RiuHz/Aquarium-Monitoring" class="btn btn-light card-btn" target="_blank">
@@ -179,7 +185,7 @@
               </div>
         
               <div class="col-md-4 d-flex justify-content-center mb-5">
-                <div class="card-custom" style="background-image: url('assets/neural-network.jpg');">
+                <div class="card-custom" style="background-image: url('./assets/images/neural-network.jpg');">
                   <div class="card-overlay">
                     <h5 class="card-title">Simple Neural Network</h5>
                     <a href="https://github.com/MichaelGuidelli/Rete-Neurale" class="btn btn-light card-btn" target="_blank">
@@ -344,7 +350,7 @@
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
-                        <input type="email" class="form-control" id="contact-form-user-email" name="email" placeholder="Enter your email" required>
+                        <input type="email" class="form-control" id="contact-form-user-email" name="email" placeholder="example@company.com" required>
                     </div>
                     <div class="mb-3">
                         <label for="message" class="form-label">Message</label>

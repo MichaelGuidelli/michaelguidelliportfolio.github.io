@@ -33,7 +33,7 @@ a {
     background-color: gray;
     width: 400px;
     height: 1px;
-    margin-top: 200px;
+    margin-top: 100px;
 }
 
 .icon-white {
@@ -42,10 +42,18 @@ a {
 
 .icon {
     cursor: pointer;
-    width: 25px;
-    height: 25px;
+    width: 35px;
+    height: 35px;
     object-fit: contain;
-    font-size: 25px;
+    font-size: 35px;
+}
+.tooltip-inner {
+  color: white !important;
+  width: fit-content !important; 
+  max-width: fit-content !important;
+  background-color: transparent !important;
+  font-size: 16px;
+
 }
 
 .btn {
