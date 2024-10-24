@@ -24,48 +24,89 @@ function isPlausibleEmail(email) {
     return plausibleEmailRegex.test(email) && validTLDs.includes(email.split('.').pop());
 }
 
-function sendEmail(event) {
+// Unified email-sending function that handles one form at a time
+function sendFormEmail(event, formId, responseElementId) {
     event.preventDefault();
 
-    const formData = getContactFormData();
+    const formData = getFormData(formId);
 
-    if (!isPlausibleEmail(formData.userContactFormEmail)) {
-        return displayMessage("Invalid email address. Please check your email.", "red");
+    // Validate email
+    if (!isPlausibleEmail(formData.userEmail)) {
+        return displayMessage("Invalid email address. Please check your email.", "red", responseElementId);
     }
 
-    sendEmailUsingSMTP(formData);
+    // Additional validation for the "Hire Me" form
+    if (formId === 'hire-me-form') {
+        const userType = formData.userType;
+        const companyName = formData.companyName;
+
+        // Check if recruiter and validate company name
+        if (userType === 'recruiter' && companyName.trim() === '') {
+            return displayMessage("Company name is required for recruiters.", "red", responseElementId);
+        }
+    }
+
+    // Send email using the unified sendEmailUsingSMTP function
+    sendEmailUsingSMTP(formData, formId === 'hire-me-form', responseElementId);
 }
 
-function getContactFormData() {
+function getFormData(formId) {
+    const form = document.getElementById(formId);
+
+    // For the "Hire Me" form, we include extra fields
+    if (formId === 'hire-me-form') {
+        return {
+            userName: form.querySelector('#hire-me-form-user-name').value || '',
+            userEmail: form.querySelector('#hire-me-form-user-email').value.trim() || '',
+            userMessage: form.querySelector('#hire-me-form-user-message').value || '',
+            companyName: form.querySelector('#hire-me-form-company-name')?.value || '',
+            userType: form.querySelector('#user-type')?.value || ''
+        };
+    }
+    
+    // For the contact form, return basic fields
     return {
-        userContactFormName: document.getElementById('contact-form-user-name').value,
-        userContactFormEmail: document.getElementById('contact-form-user-email').value.trim(),
-        userContactFormMessage: document.getElementById('contact-form-user-message').value,
+        userName: form.querySelector('#contact-form-user-name').value || '',
+        userEmail: form.querySelector('#contact-form-user-email').value.trim() || '',
+        userMessage: form.querySelector('#contact-form-user-message').value || ''
     };
 }
 
-function displayMessage(message, color, responseElementId) {
-    const responseElement = document.getElementById(responseElementId);
-    responseElement.innerText = message;
-    responseElement.style.color = color;
+function sendEmailUsingSMTP(formData, isHireMeForm = false, responseElementId) {
+    const subject = isHireMeForm ? "FORM PORTFOLIO: Hire Me Inquiry" : "FORM PORTFOLIO: New Contact Form Enquiry";
+    const emailBody = `Name: ${formData.userName}<br>Email: ${formData.userEmail}<br>Message: ${formData.userMessage}<br>${
+        isHireMeForm ? 'Company: ' + (formData.companyName || 'N/A') : ''
+    }`;
 
-    setTimeout(() => responseElement.innerText = '', 3000); // Clear message after 3 seconds
-}
-
-function sendEmailUsingSMTP({ userContactFormName, userContactFormEmail, userContactFormMessage }) {
     Email.send({
         SecureToken: "3dc73667-d27e-4157-a8df-7ac3799176b7",
         To: 'guidellimichael@gmail.com',
         From: 'guidellimichael@gmail.com',
-        Subject: "FORM PORTFOLIO: New Contact Form Enquiry",
-        Body: `Name: ${userContactFormName}<br>Email: ${userContactFormEmail}<br>Message: ${userContactFormMessage}`,
+        Subject: subject,
+        Body: emailBody
     }).then(
         () => {
-            displayMessage("Email sent successfully!", "green", 'form-response');
-            document.getElementById('contact-form').reset();
+            displayMessage("Email sent successfully!", "green", responseElementId);
+            document.getElementById(isHireMeForm ? 'hire-me-form' : 'contact-form').reset();
         },
-        () => displayMessage("Invalid email address. Please check your email.", "red", 'form-response')
+        () => displayMessage("Failed to send email. Please try again.", "red", responseElementId)
     );
+}
+
+
+function displayMessage(message, color, responseElementId) {
+    const responseElement = document.getElementById(responseElementId);
+    
+    // Check if the element exists
+    if (responseElement) {
+        responseElement.innerText = message;
+        responseElement.style.color = color;
+
+        // Clear the message after 3 seconds
+        setTimeout(() => responseElement.innerText = '', 3000);
+    } else {
+        console.error(`Element with id "${responseElementId}" not found.`);
+    }
 }
 
 function hireMeButton() {
@@ -74,14 +115,14 @@ function hireMeButton() {
     hireMeButton.disabled = false;
 }
 
-document.getElementById("hire-me-button").addEventListener("click", () => {
-    new bootstrap.Modal(document.getElementById('book-meet-modal')).show();
+document.getElementById("hire-me-button")?.addEventListener("click", () => {
+    new bootstrap.Modal(document.getElementById('hire-me-modal')).show();
 });
 
 const userTypeSelect = document.getElementById('user-type');
 const companyDiv = document.getElementById('company-div');
 
-userTypeSelect.addEventListener('change', function () {
+userTypeSelect?.addEventListener('change', function () {
     if (this.value === 'private-client') {
         companyDiv.style.display = 'none'; 
     } else {
@@ -89,116 +130,13 @@ userTypeSelect.addEventListener('change', function () {
     }
 });
 
-let CLIENT_ID = 'guidellimichael@gmail.com';
-let API_KEY = 'AIzaSyCCKy1S2AAEwEbpuJHMKK9-tEy4BsnY6Is';
-let DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
-let SCOPES = "https://www.googleapis.com/auth/calendar.events";
-
-function loadGoogleAPI() {
-    gapi.load('client:auth2', initClient);
-}
-
-function initClient() {
-    gapi.client.init({
-        apiKey: API_KEY,
-        clientId: CLIENT_ID,
-        discoveryDocs: DISCOVERY_DOCS,
-        scope: SCOPES
-    }).then(() => {
-        // Ensure the user is signed in before creating the event
-        gapi.auth2.getAuthInstance().signIn();
-    });
-}
-
-function createMeet(eventData) {
-    gapi.client.calendar.events.insert({
-        calendarId: 'primary',
-        resource: {
-            summary: 'Google Meet Booking',
-            description: eventData.message,
-            start: {
-                dateTime: eventData.dateTime,
-                timeZone: 'America/New_York'  // Adjust time zone
-            },
-            end: {
-                dateTime: new Date(new Date(eventData.dateTime).getTime() + 3600000).toISOString(), // 1-hour duration
-                timeZone: 'America/New_York'
-            },
-            conferenceData: {
-                createRequest: {
-                    requestId: "meet-" + new Date().getTime(),
-                    conferenceSolutionKey: { type: "hangoutsMeet" }
-                }
-            }
-        },
-        conferenceDataVersion: 1
-    }).then(response => {
-        let meetLink = response.result.hangoutLink;
-        sendConfirmationEmails(eventData, meetLink);
-    });
-}
-
-function sendConfirmationEmails(eventData, meetLink) {
-    // Email to the user
-    Email.send({
-        SecureToken: "3dc73667-d27e-4157-a8df-7ac3799176b7",
-        To: eventData.email,
-        From: "guidellimichael@gmail.com",
-        Subject: "Meeting Confirmation",
-        Body: `Hi ${eventData.name},<br><br>Your Google Meet is scheduled at ${eventData.dateTime}.<br>Join the meeting here: <a href="${meetLink}">${meetLink}</a><br><br>Best regards,<br>Your Name`
-    });
-
-    // Email to you with all details
-    Email.send({
-        SecureToken: "3dc73667-d27e-4157-a8df-7ac3799176b7",
-        To: "guidellimichael@gmail.com",
-        From: "guidellimichael@gmail.com",
-        Subject: "New Google Meet Scheduled",
-        Body: `A new Google Meet has been scheduled.<br><br>Name: ${eventData.name}<br>Email: ${eventData.email}<br>Company: ${eventData.company || 'N/A'}<br>Message: ${eventData.message}<br>Date & Time: ${eventData.dateTime}<br>Meet Link: <a href="${meetLink}">${meetLink}</a>`
-    }).then(() => {
-        displayMessage("Meeting scheduled successfully and emails sent!", "green");
-    }).catch(() => {
-        displayMessage("Failed to send emails.", "red");
-    });
-}
-
-document.getElementById("meet-form").addEventListener("submit", (event) => {
-    event.preventDefault();
-
-    const userType = document.getElementById('user-type').value;
-    const companyName = document.getElementById('meet-form-company-name').value;
-
-    // Get other form data
-    const eventData = {
-        name: document.getElementById('meet-form-user-name').value,
-        email: document.getElementById('meet-form-user-email').value,
-        message: document.getElementById('meet-form-user-message').value,
-        dateTime: document.getElementById('meet-date-time').value,
-        company: companyName
-    };
-
-    // Validate email
-    if (!isPlausibleEmail(eventData.email)) {
-        return displayMessage("Invalid email address. Please check your email.", "red", 'meet-form-response');
-    }
-
-    // Validate company name only if the user is a recruiter
-    if (userType === 'recruiter' && companyName.trim() === '') {
-        return displayMessage("Company name is required for recruiters.", "red", 'meet-form-response');
-    }
-
-    // Proceed with Google Meet creation
-    createMeet(eventData);
-});
-
-
 window.onload = () => {
     document.getElementById("year-site").textContent = new Date().getFullYear();
 
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl)
-    })
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
 
     hireMeButton();
     updateMyAge();

@@ -58,14 +58,14 @@
         </div>
     </nav>
     
-    <div class="modal fade" id="book-meet-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="hire-me-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Book a Google Meet</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Let's Work Together</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form id="meet-form">
+                <form id="hire-me-form" onsubmit="sendFormEmail(event, 'hire-me-form', 'hire-me-form-response'); return false;">
                     <div class="modal-body">
                         <!-- User Type Selection -->
                         <div class="mb-3">
@@ -80,40 +80,34 @@
                         <!-- Name -->
                         <div class="mb-3">
                             <label for="name" class="form-label">Your Name</label>
-                            <input type="text" class="form-control" id="meet-form-user-name" name="userName" placeholder="Enter your name" required>
+                            <input type="text" class="form-control" id="hire-me-form-user-name" name="userName" placeholder="Enter your name" required>
                         </div>
                 
                         <!-- Company Name (hidden for private clients) -->
                         <div class="mb-3" id="company-div">
                             <label for="company" class="form-label">Company Name</label>
-                            <input type="text" class="form-control" id="mett-form-company-name" name="companyName" placeholder="Enter company name">
+                            <input type="text" class="form-control" id="hire-me-form-company-name" name="companyName" placeholder="Enter company name">
                         </div>
                 
                         <!-- Email -->
                         <div class="mb-3">
                             <label for="email" class="form-label">Your Email</label>
-                            <input type="email" class="form-control" id="meet-form-user-email" name="userEmail" placeholder="Enter your email" required>
+                            <input type="email" class="form-control" id="hire-me-form-user-email" name="userEmail" placeholder="Enter your email" required>
                         </div>
                 
                         <!-- Message -->
                         <div class="mb-3">
-                            <label for="message" class="form-label">Message</label>
-                            <textarea class="form-control" id="meet-form-user-message" name="userMessage" placeholder="Reason for booking" rows="3" required></textarea>
-                        </div>
-                
-                        <!-- Date and Time -->
-                        <div class="mb-3">
-                            <label for="meetTime" class="form-label">Meeting Date & Time</label>
-                            <input type="datetime-local" class="form-control" id="meet-date-time" name="meetDateTime" required>
+                            <label for="message" class="form-label">Tell me about your project.</label>
+                            <textarea class="form-control" style="resize: none;" id="hire-me-form-user-message" name="userMessage" placeholder="" rows="3" required></textarea>
                         </div>
                     </div>
                 
                     <!-- Modal Footer -->
                     <div class="modal-footer d-flex justify-content-between align-items-center">
-                        <p id="meet-form-response" class="text-start mb-0" style="color: red;"></p>
-                        <div>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Book Meeting</button>
+                        <p style="font-size: 14px;" id="hire-me-form-response" class="me-auto"></p>
+                        <div class="d-flex">
+                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Send</button>
                         </div>
                     </div>
                 </form>
@@ -140,7 +134,6 @@
                                 <a  href="" target="https://stackoverflow.com/users/15848606/michaelf7" target="_blank"><img class="icon me-2" src="./assets/icons/stack-overflow-icon.svg" alt=""></a>
                                 <img src="./assets/icons/gmail-icon.svg" class="icon me-3" alt="" data-bs-toggle="tooltip" title="GuidelliMichael@Gmail.com">
                                 <img src="./assets/icons/mobile-icon.png" class="icon me-2" alt="" data-bs-toggle="tooltip" title="3511542492">
-
                         </div>
                     </div>
                 </div>
@@ -343,7 +336,7 @@
         <div class="col-md-12 col-sm-4 text-light d-flex justify-content-center"><h2>Get in touch</h2></div>
         <div class="container d-flex justify-content-center align-items-center">
             <div class="col-md-6">
-                <form class="text-light" id="contact-form" onsubmit="sendEmail(event); return false;">
+                <form class="text-light" id="contact-form" onsubmit="sendFormEmail(event, 'contact-form', 'form-response'); return false;">
                     <div class="mb-3">
                         <label for="name" class="form-label">Name</label>
                         <input type="text" class="form-control" id="contact-form-user-name" name="name" placeholder="Enter your name" required>
