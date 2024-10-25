@@ -166,6 +166,9 @@ a {
     border-radius: 16px;
     margin-bottom: 10px;
     flex: 0 0 auto; /* Prevents cards from growing or shrinking */
+    display: flex; /* Ensures content can be centered */
+    justify-content: center; /* Centers items horizontally */
+    align-items: center; /* Centers items vertically */
 }
 
 .icon-skill {
@@ -187,6 +190,15 @@ a {
         display: flex; /* Ensures that the content is centered */
         justify-content: center; /* Centers the cards */
         align-items: center; /* Aligns items vertically in the center */
+    }
+}
+
+/* Fallback for older browsers */
+@supports (-ms-ime-align: auto) {
+    .col-6 {
+        /* Adjustments for IE11 */
+        flex: 0 0 50%; 
+        max-width: 50%; 
     }
 }
   
