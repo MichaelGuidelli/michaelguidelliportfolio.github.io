@@ -12,7 +12,6 @@ function isPlausibleEmail(email) {
     return plausibleEmailRegex.test(email) && validTLDs.includes(email.split('.').pop());
 }
 
-// Unified email-sending function that handles one form at a time
 function sendFormEmail(event, formId, responseElementId) {
     event.preventDefault();
 
@@ -23,32 +22,25 @@ function sendFormEmail(event, formId, responseElementId) {
         return displayMessage("Invalid email address. Please check your email.", "red", responseElementId);
     }
 
-    // Additional validation for the "Hire Me" form
-    if (formId === 'hire-me-form') {
-        const userType = formData.userType;
-        const companyName = formData.companyName;
-
-        // Check if recruiter and validate company name
-        if (userType === 'recruiter' && companyName.trim() === '') {
-            return displayMessage("Company name is required for recruiters.", "red", responseElementId);
-        }
-    }
-
     // Send email using the unified sendEmailUsingSMTP function
     sendEmailUsingSMTP(formData, formId === 'hire-me-form', responseElementId);
 }
 
 function getFormData(formId) {
     const form = document.getElementById(formId);
-
+    
     // For the "Hire Me" form, we include extra fields
     if (formId === 'hire-me-form') {
+        const checkboxes = form.querySelectorAll('input[name="options"]:checked');
+        const options = Array.from(checkboxes).map(checkbox => checkbox.value);
+
         return {
             userName: form.querySelector('#hire-me-form-user-name').value || '',
             userEmail: form.querySelector('#hire-me-form-user-email').value.trim() || '',
             userMessage: form.querySelector('#hire-me-form-user-message').value || '',
             companyName: form.querySelector('#hire-me-form-company-name')?.value || '',
-            userType: form.querySelector('#user-type')?.value || ''
+            userType: form.querySelector('#user-type')?.value || '',
+            options: options.join(', ') // Join selected options into a string
         };
     }
     
@@ -61,30 +53,33 @@ function getFormData(formId) {
 }
 
 function sendEmailUsingSMTP(formData, isHireMeForm = false, responseElementId) {
-    const subject = isHireMeForm ? "FORM PORTFOLIO: Hire Me Inquiry" : "FORM PORTFOLIO: New Contact Form Enquiry";
-    const emailBody = `Name: ${formData.userName}<br>Email: ${formData.userEmail}<br>Message: ${formData.userMessage}<br>${
-        isHireMeForm ? 'Company: ' + (formData.companyName || 'N/A') : ''
-    }`;
-
-    Email.send({
-        SecureToken: "3dc73667-d27e-4157-a8df-7ac3799176b7",
-        To: 'guidellimichael@gmail.com',
-        From: 'guidellimichael@gmail.com',
-        Subject: subject,
-        Body: emailBody
-    }).then(
-        () => {
-            displayMessage("Email sent successfully!", "green", responseElementId);
-            document.getElementById(isHireMeForm ? 'hire-me-form' : 'contact-form').reset();
-        },
-        () => displayMessage("Failed to send email. Please try again.", "red", responseElementId)
-    );
-}
-
+        const subject = isHireMeForm ? "FORM PORTFOLIO: Hire Me Inquiry" : "FORM PORTFOLIO: New Contact Form Enquiry";
+        const emailBody = `Name: ${formData.userName}<br>Email: ${formData.userEmail}<br>Message: ${formData.userMessage}<br>` +
+            `${isHireMeForm ? 'Company: ' + (formData.companyName || 'N/A') + '<br>Options: ' + (formData.options || 'None') : ''}`;
+    
+        console.log('Sending email with the following data:', { subject, emailBody });
+    
+        Email.send({
+            SecureToken: "3dc73667-d27e-4157-a8df-7ac3799176b7",
+            To: 'guidellimichael@gmail.com',
+            From: 'guidellimichael@gmail.com',
+            Subject: subject,
+            Body: emailBody
+        }).then(
+            () => {
+                displayMessage("Email sent successfully!", "green", responseElementId);
+                document.getElementById(isHireMeForm ? 'hire-me-form' : 'contact-form').reset();
+            },
+            (error) => {
+                displayMessage("Failed to send email. Please try again.", "red", responseElementId);
+            }
+        );
+    }
+    
 
 function displayMessage(message, color, responseElementId) {
     const responseElement = document.getElementById(responseElementId);
-    
+
     // Check if the element exists
     if (responseElement) {
         responseElement.innerText = message;

@@ -51,7 +51,7 @@
         <div class="modal-dialog custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Let's Work Together</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Let's Work Together!</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <form id="hire-me-form" onsubmit="sendFormEmail(event, 'hire-me-form', 'hire-me-form-response'); return false;">
@@ -69,37 +69,73 @@
                         <!-- Name -->
                         <div class="mb-3">
                             <label for="name" class="form-label">Your Name</label>
-                            <input type="text" class="form-control" id="hire-me-form-user-name" name="userName" placeholder="Enter your name" required>
+                            <input type="text" class="form-control" id="hire-me-form-user-name" name="userName" placeholder="John Doe" required>
                         </div>
                 
                         <!-- Company Name (hidden for private clients) -->
                         <div class="mb-3" id="company-div">
                             <label for="company" class="form-label">Company Name</label>
-                            <input type="text" class="form-control" id="hire-me-form-company-name" name="companyName" placeholder="Enter company name">
+                            <input type="text" class="form-control" id="hire-me-form-company-name" name="companyName" placeholder="Company name">
                         </div>
                 
                         <!-- Email -->
                         <div class="mb-3">
                             <label for="email" class="form-label">Your Email</label>
-                            <input type="email" class="form-control" id="hire-me-form-user-email" name="userEmail" placeholder="Enter your email" required>
+                            <input type="email" class="form-control" id="hire-me-form-user-email" name="userEmail" placeholder="example@company.com" required>
                         </div>
                 
                         <!-- Message -->
                         <div class="mb-3">
                             <label for="message" class="form-label">Tell me about your project.</label>
-                            <textarea class="form-control" style="resize: none;" id="hire-me-form-user-message" name="userMessage" placeholder="" rows="3" required></textarea>
+                            <textarea class="form-control" style="resize: none;" id="hire-me-form-user-message" name="userMessage" placeholder="" rows="3"></textarea>
                         </div>
+                
+                        <div class="mb-3">
+                            <label class="form-label">How can I help you?</label>
+                            <div class="row">
+                                <div class="col-md-6 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="option1" name="options" value="Website design">
+                                        <label class="form-check-label" for="option1">
+                                            Website design
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="option3" name="options" value="UX design">
+                                        <label class="form-check-label" for="option3">
+                                            UX design
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="option2" name="options" value="Software design">
+                                        <label class="form-check-label" for="option2">
+                                            Software design
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="option4" name="options" value="Other">
+                                        <label class="form-check-label" for="option4">
+                                            Other
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
                 
                     <!-- Modal Footer -->
                     <div class="modal-footer d-flex justify-content-between align-items-center">
                         <p style="font-size: 14px;" id="hire-me-form-response" class="me-auto"></p>
                         <div class="d-flex">
-                            <button type="button" class="btn btn-secondary me-2" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary">Send</button>
+                            <button type="button" class="btn bg-transparent me-2 text-dark" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary">Let's get started <img class="icon-white mb-2" src="./assets/icons/arrow-up-right-icon.svg" alt=""></button>
                         </div>
                     </div>
                 </form>
+                
                 
             </div>
         </div>
@@ -113,7 +149,7 @@
                 <div class="col-md-10 d-flex flex-column">
                     <h1 class="text-light mt-5 responsive-heading">Hi, i'm Michael Guidelli, <br> a Full Stack Developer</h1>
                     <p class="text-light">I Design Software and Stuff for the Web.</p>
-                    <button class="btn mt-1" style="width: 200px;"><a href="#contact" style="text-decoration: none; color: white;">Get in touch</a></button>
+                    <button class="btn mt-1 d-flex flex-row" style="width: 220px;"><a href="#contact" style="text-decoration: none; color: white;">Send Me a Message <img src="./assets/icons/send-icon.png" style="width: 20px; height: 20px;" alt=""></a></button>
                 </div>
             </div>
             <div class="d-flex flex-column-custom flex-md-row align-items-center mt-5">
@@ -142,7 +178,7 @@
         <div class="container">
             <div class="row justify-content-center">
                 <div class="col-md-12 col-sm-12">
-                    <h2 class="text-light">About</h2>
+                    <h2 class="text-light">About Me</h2>
                     <p class="text-light text-center text-md-start py-3 px-2">
                         Hi, I'm a <span id="my-age"></span>-year-old web developer based in Naples.
                         I’m passionate about creating user-friendly and responsive websites. 
@@ -323,6 +359,12 @@
                         <p class="text-light mb-0">POSTMAN</p>
                     </div>
                 </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/trello-icon.svg" alt="">
+                        <p class="text-light mb-0">TRELLO</p>
+                    </div>
+                </div>
             </div>
             </div>
            
@@ -341,7 +383,7 @@
                 </li>
             
                 <li class="timeline-item mb-5">
-                  <h5 class="fw-bold">High School Diploma</h5>
+                  <h5 class="fw-bold">High School Diploma <img src="./assets/icons/highschool-diploma.icon.png" style="height: 30px;" alt=""></h5>
                   <p class="mb-2 fw-bold">2023</p>
                 </li>
               </ul>
@@ -351,13 +393,13 @@
     <!-- CONTACT -->
 
     <section id="contact" style="margin-bottom: 200px;">
-        <div class="col-md-12 text-light d-flex justify-content-center"><h2>Get in touch</h2></div>
+        <div class="col-md-12 text-light d-flex justify-content-center"><h2>Contact Me</h2></div>
         <div class="container d-flex justify-content-center align-items-center">
             <div class="col-md-6">
                 <form class="text-light" id="contact-form" onsubmit="sendFormEmail(event, 'contact-form', 'form-response'); return false;">
                     <div class="mb-3">
-                        <label for="name" class="form-label">Name</label>
-                        <input type="text" style="min-width: 350px;" class="form-control" id="contact-form-user-name" name="name" placeholder="Enter your name" required>
+                        <label for="name" class="form-label">Full Name</label>
+                        <input type="text" style="min-width: 350px;" class="form-control" id="contact-form-user-name" name="name" placeholder="John Doe" required>
                     </div>
                     <div class="mb-3">
                         <label for="email" class="form-label">Email</label>
@@ -365,13 +407,15 @@
                     </div>
                     <div class="mb-3">
                         <label for="message" class="form-label">Message</label>
-                        <textarea class="form-control" id="contact-form-user-message" name="message" rows="4" placeholder="Enter your message" required style="resize: none;"></textarea>
+                        <textarea class="form-control" id="contact-form-user-message" name="message" rows="4" placeholder="Tell me how can i help you." required style="resize: none;"></textarea>
                     </div>
                     <div class="text-center">
-                        <button type="submit" class="btn btn-primary w-100 mb-2">Send</button>
+                        <button type="submit" id="send-button" class="btn btn-primary w-100 mb-2 d-flex justify-content-center align-items-center">
+                            <span class="me-2">Send Message</span>
+                            <img src="./assets/icons/send-icon.png" style="width: 20px; height: 20px;" alt="">
+                        </button>                  
                         <p id="form-response"></p>
                     </div>
-                    <p id="form-response-text"></p>
                 </form>
             </div>
         </div>
