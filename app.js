@@ -1,15 +1,3 @@
-let timeoutId;
-
-document.addEventListener('mousemove', (e) => {
-    const cursorHue = document.getElementById('cursorHue');
-    cursorHue.classList.remove('fade-out');
-    cursorHue.style.left = `${e.pageX}px`;
-    cursorHue.style.top = `${e.pageY}px`;
-
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => cursorHue.classList.add('fade-out'), 1000);
-});
-
 function updateMyAge() {
     const myBirthDate = new Date(new Date().getFullYear(), 9, 7); // October 7th
     const today = new Date();
@@ -115,6 +103,7 @@ function hireMeButton() {
     hireMeButton.disabled = false;
 }
 
+
 document.getElementById("hire-me-button")?.addEventListener("click", () => {
     new bootstrap.Modal(document.getElementById('hire-me-modal')).show();
 });
@@ -130,12 +119,28 @@ userTypeSelect?.addEventListener('change', function () {
     }
 });
 
-window.onload = () => {
-    document.getElementById("year-site").textContent = new Date().getFullYear();
 
+function showTooltipOnClick(iconId) {
+    var icon = document.getElementById(iconId);
+    var tooltip = bootstrap.Tooltip.getInstance(icon); // Get the tooltip instance
+
+    // Show the tooltip on click
+    icon.addEventListener('click', function () {
+        tooltip.show();
+    });
+}
+
+showTooltipOnClick('gmail-icon');
+showTooltipOnClick('mobile-icon');
+
+window.onload = () => {
+    
+    document.getElementById("year-site").textContent = new Date().getFullYear();
     var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
     var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl);
+        return new bootstrap.Tooltip(tooltipTriggerEl, {
+            placement: 'bottom' // Place the tooltip under the image
+        });
     });
 
     hireMeButton();
