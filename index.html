@@ -13,6 +13,9 @@
     <title>Michael Guidelli</title>
 </head>
 <body style="background-color: black; overflow-x:hidden;">
+
+    <!-- NAVBAR  -->
+
     <nav class="navbar navbar-expand-md navbar-dark p-5">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">
@@ -38,11 +41,12 @@
             </div>
             <div class="d-flex justify-content-around">
                 <button id="hire-me-button" class="btn me-2" style="min-width: 120px; max-width: fit-content;" onclick="hireMeButton()"></button>
-                <!-- <button id="toggle-language" class="btn d-flex align-item-center justify-content-center bold" style="width: 40px;" onclick="toggleLanguage()">EN</button> -->
             </div>
         </div>
     </nav>
     
+    <!-- MODAL HIRE ME -->
+
     <div class="modal fade" id="hire-me-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog custom-modal">
             <div class="modal-content">
@@ -101,12 +105,14 @@
         </div>
     </div>
 
+    <!-- HOME -->
+
     <section id="home" style="margin-bottom: 200px;" class="p-5">   
-        <div class="container-fluid mt-5 px-5">
+        <div class="container-fluid mt-5">
             <div class="row">
                 <div class="col-md-10 d-flex flex-column">
                     <h1 class="text-light mt-5 responsive-heading">I'm Michael Guidelli, <br> a Full Stack Developer</h1>
-                    <p class="text-light mt-1">I Design Software and Stuff for the Web.</p>
+                    <p class="text-light">I Design Software and Stuff for the Web.</p>
                     <button class="btn mt-1" style="width: 200px;"><a href="#contact" style="text-decoration: none; color: white;">Get in touch</a></button>
                 </div>
             </div>
@@ -128,9 +134,9 @@
             </div>
             
         </div>
-
-        
     </section>
+
+    <!-- ABOUT -->
 
     <section id="about" class="text-center" style="margin-bottom: 200px;">
         <div class="container">
@@ -149,6 +155,8 @@
             </div>
         </div>
     </section>
+
+    <!-- PERSONAL PROJECT -->
 
     <section id="project" style="margin-bottom: 200px;">
         <div class="col-12 text-light d-flex justify-content-center mb-4">
@@ -191,11 +199,13 @@
           </div>
         
           <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
-        </body>
-    
     </section>
 
-    <section id="skills" style="margin-bottom: 200px;">
+    <!-- MY SKILLS -->
+
+    <!-- <section id="skills" style="margin-bottom: 200px;">
+
+
         <div class="col-md-12 col-sm-4 text-light d-flex justify-content-center">
             <h2>My Skills</h2>
         </div>
@@ -204,7 +214,7 @@
                 <div class="col-md-4">
                     <div class="card text-light h-100" style="max-height: 180px;">
                         <div class="card-body d-flex flex-column justify-content-between">
-                            <h5 class="card-title d-flex align-item-center me-2">HTML</h5>
+                            <h5 class="card-title d-flex align-items-center me-2">HTML</h5>
                             <p class="card-text">5 years, countless projects.</p>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" style="width: 90%; background: #9518bf;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
@@ -215,7 +225,7 @@
                 <div class="col-md-4">
                     <div class="card text-light h-100" style="max-height: 180px;">
                         <div class="card-body d-flex flex-column justify-content-between">
-                            <h5 class="card-title d-flex align-item-center me-2">CSS</h5>
+                            <h5 class="card-title d-flex align-items-center me-2">CSS</h5>
                             <p class="card-text">5 years, countless projects.</p>
                             <div class="progress">
                                 <div class="progress-bar" role="progressbar" style="width: 90%; background: #9518bf;" aria-valuenow="" aria-valuemin="0" aria-valuemax="100"></div>
@@ -302,11 +312,137 @@
                 </div>
             </div>
         </div>
+    </section> -->
+
+    <section id="skills" style="margin-bottom: 200px;">
+        <div class="col-md-12 text-light d-flex justify-content-center">
+            <h2>My Skills</h2>
+        </div>
+        <div class="container mt-2 d-flex justify-content-center align-items-center" style="width: 55%;">
+            <div class="row justify-content-center">
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/python-icon.svg" alt="">
+                        <p class="text-light mb-0">Python</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/html-icon.svg" alt="">
+                        <p class="text-light mb-0">HTML5</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/css-icon.svg" alt="">
+                        <p class="text-light mb-0">CSS</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/bootstrap-icon.svg" alt="">
+                        <p class="text-light mb-0">BOOTSTRAP</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/javascript-icon.svg" alt="">
+                        <p class="text-light mb-0">JAVASCRIPT</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/typescript-icon.svg" alt="">
+                        <p class="text-light mb-0">TYPESCRIPT</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/php-icon.svg" alt="">
+                        <p class="text-light mb-0">PHP</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2 icon-blue" src="./assets/icons/mysql-icon.svg" alt="">
+                        <p class="text-light mb-0">MYSQL</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/c-icon.svg" alt="">
+                        <p class="text-light mb-0">C</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/angular-icon.svg" alt="">
+                        <p class="text-light mb-0">ANGULAR</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/ionic-icon.svg" alt="">
+                        <p class="text-light mb-0">IONIC</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/nodejs-icon.svg" alt="">
+                        <p class="text-light mb-0">NODEJS</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     
+    <!-- OTHER TECHNOLOGIES AND TOOLS -->
+
+    <section style="margin-bottom: 200px;"> 
+        <div class="col-md-12 text-light d-flex justify-content-center">
+            <h2>Other Technologies and Tools</h2>
+        </div>
+        <div class="container mt-2 d-flex justify-content-center align-items-center" style="width: 55%;">
+            <div class="row justify-content-center">
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/figma-icon.svg" alt="">
+                        <p class="text-light mb-0">FIGMA</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/git-icon.svg" alt="">
+                        <p class="text-light mb-0">GIT</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2 icon-white" src="./assets/icons/github-icon.svg" alt="">
+                        <p class="text-light mb-0">GITHUB</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/slack-icon.svg" alt="">
+                        <p class="text-light mb-0">SLACK</p>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-6 col-md-3 mb-3 d-flex justify-content-center">
+                    <div class="p-3 card-skill d-flex flex-column justify-content-center align-items-center text-center">
+                        <img class="icon-skill mb-2" src="./assets/icons/postman-icon.svg" alt="">
+                        <p class="text-light mb-0">POSTMAN</p>
+                    </div>
+                </div>
+            </div>
+            </div>
+           
+    </section>
+
+    <!-- EXPERIENCE -->
 
     <section id="resume" style="margin-bottom: 200px;">
-        <div class="col-md-12 col-sm-4 text-light d-flex justify-content-center"><h2>Experience</h2></div>
+        <div class="col-md-12 text-light d-flex justify-content-center"><h2>Experience</h2></div>
         <div class="container">
             <ul class="timeline text-light">
                 <li class="timeline-item mb-5">
@@ -323,8 +459,10 @@
         </div>
     </section>
 
+    <!-- CONTACT -->
+
     <section id="contact" style="margin-bottom: 200px;">
-        <div class="col-md-12 col-sm-4 text-light d-flex justify-content-center"><h2>Get in touch</h2></div>
+        <div class="col-md-12 text-light d-flex justify-content-center"><h2>Get in touch</h2></div>
         <div class="container d-flex justify-content-center align-items-center">
             <div class="col-md-6">
                 <form class="text-light" id="contact-form" onsubmit="sendFormEmail(event, 'contact-form', 'form-response'); return false;">
@@ -349,6 +487,8 @@
             </div>
         </div>
     </section>
+
+    <!-- FOOTER -->
 
     <footer class="d-flex flex-column justify-content-center align-items-center col-md-12">
         <p class="col-12 text-center">This was built with HTML, BootStrap, CSS and Javascript.</p>

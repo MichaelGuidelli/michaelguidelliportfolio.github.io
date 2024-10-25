@@ -15,6 +15,10 @@ a {
     filter: brightness(0) saturate(100%) invert(100%) sepia(98%) saturate(7%) hue-rotate(131deg) brightness(101%) contrast(104%);
 }
 
+.icon-blue {
+  filter: brightness(0) saturate(100%) invert(62%) sepia(58%) saturate(6101%) hue-rotate(171deg) brightness(95%) contrast(97%);
+}
+
 .icon {
     cursor: pointer;
     width: 35px;
@@ -155,23 +159,46 @@ a {
     font-size: 24px; /* Default for mobile */
   }
 
-  /* Tablet screens (768px and up) */
-  @media (min-width: 768px) {
-    .responsive-heading {
-      font-size: 50px;
-    }
-  }
-
-  @media (max-width: 768px) {
-    .flex-column-custom {
-        flex-direction: column !important;
-        align-items: center !important;
-    }
+  .card-skill {
+    background-color: #0D1117;
+    width: 160px; /* Fixed width for larger screens */
+    height: 160px; /* Fixed height for larger screens */
+    border-radius: 16px;
+    margin-bottom: 10px;
+    flex: 0 0 auto; /* Prevents cards from growing or shrinking */
 }
 
-  /* Desktop screens (1200px and up) */
-  @media (min-width: 1200px) {
-    .responsive-heading {
-      font-size: 80px;
+.icon-skill {
+    width: 48px; 
+    height: 48px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .row {
+        display: flex;
+        flex-wrap: wrap; /* Enables wrapping for smaller screens */
+        justify-content: center; /* Centers the items */
     }
+
+    .col-6 {
+        flex: 0 0 50%; /* Two columns on mobile */
+        max-width: 50%; /* Ensures max width is 50% for two columns */
+        display: flex; /* Ensures that the content is centered */
+        justify-content: center; /* Centers the cards */
+        align-items: center; /* Aligns items vertically in the center */
+    }
+}
+  
+@media (max-width: 768px) {
+  .flex-column-custom {
+    flex-direction: column !important;
+    align-items: center !important;
   }
+}
+
+@media (min-width: 768px) {
+  .responsive-heading {
+    font-size: 80px;
+  }
+}
