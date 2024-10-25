@@ -157,10 +157,10 @@ a {
 
 .responsive-heading {
     font-size: 24px; /* Default for mobile */
-  }
+}
 
-  .card-skill {
-    background-color: #0D1117;
+.card-skill {
+    background-color: #0D1117 !important;
     width: 160px; /* Fixed width for larger screens */
     height: 160px; /* Fixed height for larger screens */
     border-radius: 16px;
