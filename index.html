@@ -16,43 +16,48 @@
 
     <!-- NAVBAR  -->
 
-    <nav class="navbar navbar-expand-md navbar-dark p-5">
-        <div class="container-fluid">
+    <nav class="navbar navbar-expand-md navbar-dark p-5" style="margin-bottom: 100px;">
+        <div class="container-fluid position-relative">
+            <!-- Brand on the left side -->
             <a class="navbar-brand" href="#">
                 <h2 class="text-light font-weight-bold">
                     Portfolio<span style="color: #9518bf; font-size: 50px;">.</span>
                 </h2>
             </a>
-            <div class="d-none d-md-flex mx-auto">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link text-light mx-3" href="#about">About</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light mx-3" href="#project">Personal Project</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light mx-3" href="#skills">Skills</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-light mx-3" href="#resume">Experience</a>
-                    </li>
-                </ul>
-            </div>
-            <div class="d-flex justify-content-around">
-                <button id="hire-me-button" class="btn me-2" style="min-width: 120px; max-width: fit-content;" onclick="hireMeButton()"></button>
+    
+            <!-- Centered Navbar links (hidden on mobile) -->
+            <ul class="navbar-nav position-absolute start-50 translate-middle-x d-none d-md-flex">
+                <li class="nav-item">
+                    <a class="nav-link text-light mx-3" href="#about">About</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light mx-3" href="#project">Projects</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light mx-3" href="#skills">Skills</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-light mx-3" href="#resume">Experience</a>
+                </li>
+            </ul>
+    
+            <!-- Buttons on the right side, inline on all screens -->
+            <div class="d-flex ms-auto align-items-center">
+                <button id="hire-me-button" class="btn me-2" style="min-width: 120px; max-width: fit-content;" onclick="hireMeButton()">
+                    Hire Me
+                </button>
                 <button class="btn" onclick="window.location.href='./assets/michael_guidelli_cv.pdf'" download>
                     CV
                     <img src="./assets/icons/download-icon.png" alt="Download icon" class="icon-white" style="height: 16px;">
                 </button>
-
             </div>
         </div>
     </nav>
     
+    
     <!-- MODAL HIRE ME -->
 
-    <div class="modal fade" id="hire-me-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="hire-me-modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true"> 
         <div class="modal-dialog custom-modal">
             <div class="modal-content">
                 <div class="modal-header">
@@ -149,10 +154,10 @@
     <!-- HOME -->
 
     <section id="home" style="margin-bottom: 200px;" class="p-5">   
-        <div class="container-fluid mt-5">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col-md-10 d-flex flex-column">
-                    <h1 class="text-light mt-5 responsive-heading">Hi, i'm Michael Guidelli, <br> a Full Stack Developer</h1>
+                    <h1 class="text-light responsive-heading">Hi, i'm Michael Guidelli, <br> a Full Stack Developer</h1>
                     <p class="text-light">I Design Software and Stuff for the Web.</p>
                     <button class="btn mt-1 d-flex flex-row" style="width: 220px;"><a href="#contact" style="text-decoration: none; color: white;">Send Me a Message <img src="./assets/icons/send-icon.png" style="width: 20px; height: 20px;" alt=""></a></button>
                 </div>
