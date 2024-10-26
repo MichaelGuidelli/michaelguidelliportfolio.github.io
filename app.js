@@ -94,7 +94,7 @@ function displayMessage(message, color, responseElementId) {
 
 function hireMeButton() {
     const hireMeButton = document.getElementById('hire-me-button');
-    hireMeButton.innerText = "Hire me 👋";
+    hireMeButton.innerText = "Hire Me 👋";
     hireMeButton.disabled = false;
 }
 
