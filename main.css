@@ -225,18 +225,3 @@ a {
 .form-check-input:focus {
   box-shadow: 0 0 0 0.2rem rgba(149, 24, 191, 0.5) !important; /* Add a shadow for focus */
 }
-
-.loader {
-  border: 3px solid #f3f3f3; /* Light grey */
-  border-top: 3px solid #3498db; /* Blue */
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  animation: spin 2s linear infinite; /* Spin animation */
-  display: inline-block; /* Inline-block for proper alignment */
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
