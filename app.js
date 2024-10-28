@@ -16,8 +16,7 @@ function isPlausibleEmail(email) {
 }
 
 function isPlausibleMessage(message) {
-    const trimmedMessage = message.trim();
-    return trimmedMessage.length >= 30;
+    return message.trim().length >= 30;
 }
 
 // Capitalize the first letter of each word
@@ -28,93 +27,63 @@ function capitalizeName(name) {
 // Disable all form fields
 function disableAllFields(form) {
     const fields = ['userName', 'userEmail', 'userMessage', 'companyName'];
-    fields.forEach(fieldName => {
-        form[fieldName].disabled = true;
-    });
+    fields.forEach(fieldName => form[fieldName].disabled = true);
 
-    // Disable checkboxes
-    const checkboxes = form.querySelectorAll('input[name="options"]');
-    checkboxes.forEach(checkbox => {
-        checkbox.disabled = true;
-    });
+    form.querySelectorAll('input[name="options"]').forEach(checkbox => checkbox.disabled = true);
 }
 
 // Enable or disable fields based on user type
 function toggleFieldsEnabled(form, userType) {
-    const fields = ['userName', 'userEmail', 'userMessage', 'companyName'];
-    const isEnabled = userType !== ''; // Enable only if user type is selected
+    const isEnabled = userType !== '';
+    ['userName', 'userEmail', 'userMessage', 'companyName'].forEach(field => form[field].disabled = !isEnabled);
+    
+    form.querySelectorAll('input[name="options"]').forEach(checkbox => checkbox.disabled = !isEnabled);
 
-    fields.forEach(fieldName => {
-        form[fieldName].disabled = !isEnabled;
-    });
-
-    // Enable or disable checkboxes
-    const checkboxes = form.querySelectorAll('input[name="options"]');
-    checkboxes.forEach(checkbox => {
-        checkbox.disabled = !isEnabled;
-    });
-
-    // Reset company name field if user type changes to private client
     if (userType === 'private-client') {
         form['companyName'].value = '';
-        applyValidationStyle(form['companyName'], true); // Show as valid since it's optional
+        applyValidationStyle(form['companyName'], true);
     }
 }
 
 // Dynamic Form Validation
 function setupDynamicValidation() {
     const form = document.getElementById('hire-me-form');
-
-    // Initially disable all fields
     disableAllFields(form);
 
     form['userType'].addEventListener('change', function () {
         const companyDiv = document.getElementById('company-div');
-        const userType = this.value;
+        form['companyName'].required = this.value === 'recruiter';
+        companyDiv.style.display = this.value === 'recruiter' ? 'block' : 'none';
 
-        // Set the companyName field requirement based on userType
-        form['companyName'].required = userType === 'recruiter';
-        companyDiv.style.display = userType === 'recruiter' ? 'block' : 'none';
-
-        // Enable or disable fields based on user type selection
-        toggleFieldsEnabled(form, userType);
+        toggleFieldsEnabled(form, this.value);
     });
 
-    form['userName'].addEventListener('input', (e) => {
+    form['userName'].addEventListener('input', e => {
         e.target.value = capitalizeName(e.target.value);
         validateField(e.target);
     });
 
-    form['userEmail'].addEventListener('input', (e) => {
-        applyValidationStyle(e.target, isPlausibleEmail(e.target.value));
-    });
+    form['userEmail'].addEventListener('input', e => applyValidationStyle(e.target, isPlausibleEmail(e.target.value)));
 
-    // Update the message counter as user types
     const userMessageField = form['userMessage'];
-    userMessageField.addEventListener('input', (e) => {
+    userMessageField.addEventListener('input', e => {
         applyValidationStyle(e.target, isPlausibleMessage(e.target.value));
-        updateMessageCounter(e.target.value.length); // Update counter
+        updateMessageCounter(e.target.value.length);
     });
 
     if (form['companyName']) {
-        form['companyName'].addEventListener('input', (e) => {
-            if (form['userType'].value === 'recruiter') {
-                validateField(e.target);
-            } else {
-                applyValidationStyle(e.target, true); // Mark as valid if not required
-            }
+        form['companyName'].addEventListener('input', e => {
+            const isValid = form['userType'].value === 'recruiter' ? validateField(e.target) : true;
+            applyValidationStyle(e.target, isValid);
         });
     }
-
-    // Initialize the message counter
-    updateMessageCounter(0);
+    
+    updateMessageCounter(0); // Initialize the message counter
 }
 
-// New function to update the message counter
 function updateMessageCounter(currentLength) {
-    const maxLength = 30;
     const counterElement = document.getElementById('message-counter');
-    counterElement.textContent = `${currentLength} / ${maxLength}`;
+    counterElement.textContent = `${currentLength} / 30`;
 }
 
 function validateField(field) {
@@ -126,38 +95,46 @@ function validateField(field) {
 function sendFormEmail(event) {
     event.preventDefault();
     const form = document.getElementById('hire-me-form');
-    const sendButton = document.getElementById('send-button'); // Replace with your button's actual ID
+    const sendButton = document.getElementById('send-button');
 
     if (!validateForm(form)) return;
 
-    // Add loading animation to the button
     sendButton.classList.add('button-loading');
-
     sendEmailUsingSMTP(getFormData(form), sendButton);
 }
 
 function validateForm(form) {
-    const userType = form['userType'].value;
-
     const isNameValid = validateField(form['userName']);
     const isEmailValid = isPlausibleEmail(form['userEmail'].value) && validateField(form['userEmail']);
     const isMessageValid = isPlausibleMessage(form['userMessage'].value) && validateField(form['userMessage']);
+    const isCompanyNameValid = form['userType'].value !== 'recruiter' || validateField(form['companyName']);
 
-    let isCompanyNameValid = true;
-    if (userType === 'recruiter') {
-        isCompanyNameValid = validateField(form['companyName']);
-    }
-
-    const checkboxes = form.querySelectorAll('input[name="options"]:checked');
-    const isCheckboxValid = true; // Always valid since checkboxes are optional
-
-    return isNameValid && isEmailValid && isMessageValid && isCompanyNameValid && isCheckboxValid;
+    return isNameValid && isEmailValid && isMessageValid && isCompanyNameValid;
 }
 
-function sendEmailUsingSMTP(formData) {
+function updateSendButton(sendButton, text, showLoader = false) {
+    if (showLoader) {
+        sendButton.innerHTML = `
+            Sending... `;
+    } else {
+        sendButton.innerHTML = `
+            ${text}`;
+    }
+}
+
+function resetSendButton(sendButton) {
+    sendButton.innerHTML = `
+        Let's get started 
+        <img class="mb-0 ms-2" style="width: 20px; height: 20px;" src="./assets/icons/send-icon.png" alt="">`; // Default state
+}
+
+function sendEmailUsingSMTP(formData, sendButton) {
     const subject = "FORM PORTFOLIO: Hire Me Inquiry";
     const emailBody = `Name: ${formData.userName}<br>Email: ${formData.userEmail}<br>Message: ${formData.userMessage}<br>` +
-        `Company: ${formData.companyName || 'N/A'}<br>Options: ${formData.options || 'None'}`;
+                      `Company: ${formData.companyName || 'N/A'}<br>Options: ${formData.options || 'None'}`;
+
+    // Show loading state
+    updateSendButton(sendButton, "", true);
 
     Email.send({
         SecureToken: "3dc73667-d27e-4157-a8df-7ac3799176b7",
@@ -166,33 +143,35 @@ function sendEmailUsingSMTP(formData) {
         Subject: subject,
         Body: emailBody
     }).then(
-        () => {
-            // Reset the form and field styles after successful email
-            const form = document.getElementById('hire-me-form');
-            form.reset(); // Reset the form fields
-            
-            // Reset styles
-            const fields = ['userName', 'userEmail', 'userMessage', 'companyName'];
-            fields.forEach(fieldName => {
-                const field = form[fieldName];
-                applyValidationStyle(field, true); // Show as valid since reset
-                field.style.borderColor = ''; // Reset to default state
-            });
-
-            updateMessageCounter(0); // Reset message counter
-            disableAllFields(form); // Disable all fields again
+        (message) => {
+            if (message === "OK") {
+                updateSendButton(sendButton, "Message Sent");
+            } else {
+                updateSendButton(sendButton, "Failed to Send Message");
+            }
         },
-        (error) => {
-            console.error("Failed to send email:", error);
-        }
-    );
+        () => updateSendButton(sendButton, "Failed to Send Message")
+    ).finally(() => {
+        setTimeout(() => resetSendButton(sendButton), 3000);
+    });
 }
 
-// Helper Function to Collect Form Data
-function getFormData(form) {
-    const checkboxes = form.querySelectorAll('input[name="options"]:checked');
-    const options = Array.from(checkboxes).map(checkbox => checkbox.value);
 
+function resetForm() {
+    const form = document.getElementById('hire-me-form');
+    form.reset();
+    ['userName', 'userEmail', 'userMessage', 'companyName'].forEach(field => {
+        applyValidationStyle(form[field], true);
+        form[field].style.borderColor = '';
+    });
+    updateMessageCounter(0);
+    disableAllFields(form);
+}
+
+document.getElementById('hire-me-modal').addEventListener('hide.bs.modal', resetForm);
+
+function getFormData(form) {
+    const options = Array.from(form.querySelectorAll('input[name="options"]:checked')).map(checkbox => checkbox.value);
     return {
         userName: form['userName'].value.trim(),
         userEmail: form['userEmail'].value.trim(),
@@ -203,20 +182,23 @@ function getFormData(form) {
     };
 }
 
-// Initialize
+function setupTooltips() {
+    const tooltipElements = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    tooltipElements.forEach((el) => {
+        const tooltip = new bootstrap.Tooltip(el, { trigger: 'manual', placement: 'bottom' });
+        el.addEventListener('mouseenter', () => tooltip.show());
+        el.addEventListener('mouseleave', () => tooltip.hide());
+        el.addEventListener('click', () => tooltip._isShown() ? tooltip.hide() : tooltip.show());
+    });
+}
+
 window.onload = () => {
     document.getElementById("year-site").textContent = new Date().getFullYear();
     updateMyAge();
-
-    // Initialize dynamic validation
-    setupDynamicValidation(); // Setup validation for the form
-
-    // Button to open the modal
+    setupDynamicValidation();
+    setupTooltips();
     document.getElementById("hire-me-button")?.addEventListener("click", () => {
         new bootstrap.Modal(document.getElementById("hire-me-modal")).show();
     });
-
-    // Submit event for the form
-    const form = document.getElementById('hire-me-form');
-    form.addEventListener('submit', sendFormEmail);
+    document.getElementById('hire-me-form').addEventListener('submit', sendFormEmail);
 };
