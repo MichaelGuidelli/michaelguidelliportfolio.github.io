@@ -146,6 +146,7 @@ function sendEmailUsingSMTP(formData, sendButton) {
         (message) => {
             if (message === "OK") {
                 updateSendButton(sendButton, "Message Sent");
+                resetForm();
             } else {
                 updateSendButton(sendButton, "Failed to Send Message");
             }
