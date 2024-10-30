@@ -52,8 +52,9 @@ function setupDynamicValidation() {
 
     form['userType'].addEventListener('change', function () {
         const companyDiv = document.getElementById('company-div');
-        form['companyName'].required = this.value === 'recruiter';
-        companyDiv.style.display = this.value === 'recruiter' ? 'block' : 'none';
+        const isRecruiter = this.value === 'recruiter';
+        form['companyName'].required = isRecruiter;
+        companyDiv.style.display = isRecruiter ? 'block' : 'none';
 
         toggleFieldsEnabled(form, this.value);
     });
@@ -63,7 +64,9 @@ function setupDynamicValidation() {
         validateField(e.target);
     });
 
-    form['userEmail'].addEventListener('input', e => applyValidationStyle(e.target, isPlausibleEmail(e.target.value)));
+    form['userEmail'].addEventListener('input', e => 
+        applyValidationStyle(e.target, isPlausibleEmail(e.target.value))
+    );
 
     const userMessageField = form['userMessage'];
     userMessageField.addEventListener('input', e => {
@@ -71,15 +74,14 @@ function setupDynamicValidation() {
         updateMessageCounter(e.target.value.length);
     });
 
-    if (form['companyName']) {
-        form['companyName'].addEventListener('input', e => {
-            const isValid = form['userType'].value === 'recruiter' ? validateField(e.target) : true;
-            applyValidationStyle(e.target, isValid);
-        });
-    }
-    
+    form['companyName'].addEventListener('input', e => {
+        const isValid = form['userType'].value !== 'recruiter' || validateField(e.target);
+        applyValidationStyle(e.target, isValid && e.target.value.trim().length > 0);
+    });
+
     updateMessageCounter(0); // Initialize the message counter
 }
+
 
 function updateMessageCounter(currentLength) {
     const counterElement = document.getElementById('message-counter');
