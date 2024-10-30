@@ -130,9 +130,39 @@ function resetSendButton(sendButton) {
 
 function sendEmailUsingSMTP(formData, sendButton) {
     const subject = "FORM PORTFOLIO: Hire Me Inquiry";
-    const emailBody = `Name: ${formData.userName}<br>Email: ${formData.userEmail}<br>Message: ${formData.userMessage}<br>` +
-                      `Company: ${formData.companyName || 'N/A'}<br>Options: ${formData.options || 'None'}`;
-
+    const emailBody = `
+    <html>
+      <body>
+        <table style="width:100%; border-collapse: collapse;">
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Name:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${formData.userName}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Email:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${formData.userEmail}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>User Type:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${formData.userType || 'N/A'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Message:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${formData.userMessage}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Company:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${formData.companyName || 'N/A'}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Options:</strong></td>
+            <td style="padding: 8px; border: 1px solid #ddd;">${formData.options || 'None'}</td>
+          </tr>
+        </table>
+      </body>
+    </html>
+  `;
+  
     // Show loading state
     updateSendButton(sendButton, "", true);
 
