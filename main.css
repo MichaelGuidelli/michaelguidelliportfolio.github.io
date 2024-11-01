@@ -1,52 +1,39 @@
-:root {
-  --primary-color: #9518bf;
-  --icon-white-filter: brightness(0) saturate(100%) invert(100%) sepia(98%) saturate(7%) hue-rotate(131deg) brightness(101%) contrast(104%);
-  --icon-blue-filter: brightness(0) saturate(100%) invert(62%) sepia(58%) saturate(6101%) hue-rotate(171deg) brightness(95%) contrast(97%);
-  --font-family: "Inter", sans-serif;
-  --font-size-a: 18px;
-  --font-size-heading: 24px;
-  --font-size-heading-lg: 80px;
-  --card-width: 350px;
-  --card-height: 350px;
-  --card-skill-size: 160px;
-  --icon-size: 35px;
-  --icon-skill-size: 48px;
-  --scrollbar-thumb-color: #9518bf;
-}
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Inter", sans-serif;
 }
 
 a {
-  font-size: var(--font-size-a) !important;
+    font-size: 18px !important;
 }
 
 .icon-white {
-  filter: var(--icon-white-filter);
+    filter: brightness(0) saturate(100%) invert(100%) sepia(98%) saturate(7%) hue-rotate(131deg) brightness(101%) contrast(104%);
 }
 
 .icon-blue {
-  filter: var(--icon-blue-filter);
+  filter: brightness(0) saturate(100%) invert(62%) sepia(58%) saturate(6101%) hue-rotate(171deg) brightness(95%) contrast(97%);
 }
 
 .icon {
-  cursor: pointer;
-  width: var(--icon-size);
-  height: var(--icon-size);
-  object-fit: contain;
-  font-size: var(--icon-size);
+    cursor: pointer;
+    width: 35px;
+    height: 35px;
+    object-fit: contain;
+    font-size: 35px;
 }
 
 .tooltip-inner {
   color: white !important;
-  width: fit-content !important;
+  width: fit-content !important; 
   max-width: fit-content !important;
   background-color: transparent !important;
   font-size: 16px;
+
 }
 
 .btn {
@@ -115,174 +102,184 @@ button:active {
 
 
 .timeline {
-  border-left: 1px solid hsl(0, 0%, 90%);
-  position: relative;
-  list-style: none;
-}
-
-.timeline .timeline-item {
-  position: relative;
-}
-
-.timeline .timeline-item:after {
-  background-color: var(--primary-color);
-  left: -38px;
-  border-radius: 50%;
-  height: 11px;
-  width: 11px;
-  content: "";
-  position: absolute;
-  display: block;
-  top: 0;
-}
+    border-left: 1px solid hsl(0, 0%, 90%);
+    position: relative;
+    list-style: none;
+    }
+    
+    .timeline .timeline-item {
+    position: relative;
+    }
+    
+    .timeline .timeline-item:after {
+    position: absolute;
+    display: block;
+    top: 0;
+    }
+    
+    .timeline .timeline-item:after {
+    background-color: #9518bf;
+    left: -38px;
+    border-radius: 50%;
+    height: 11px;
+    width: 11px;
+    content: "";
+    }
 
 .card {
-  background-color: transparent !important;
-  height: 80% !important;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    background-color: transparent !important;
+    height: 80% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .card-body {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+    flex-grow: 1; /* Makes the card body fill the available space */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.card-custom {
-  width: var(--card-width);
-  height: var(--card-height);
-  background-size: cover;
-  background-position: center;
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  color: white;
+.progress {
+    margin-top: auto; /* Ensures the progress bar is at the bottom */
+    height: 5px !important;
 }
 
-.card-title {
-  font-size: 1.2rem;
-  font-weight: bold;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+/* For WebKit-based browsers */
+::-webkit-scrollbar {
+    width: 3px; /* Width of the scrollbar */
+    background-color: transparent; /* No background color */
 }
 
-.card-btn {
-  margin-top: 1rem;
+::-webkit-scrollbar-thumb {
+    background-color: #9518bf; /* Purple color for the scrollbar thumb */
+    border-radius: 6px; /* Rounded corners */
 }
+  .card-custom {
+    width: 350px;
+    height: 350px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+  }
 
-.card-overlay {
-  background-color: rgba(0, 0, 0, 0.5);
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+  }
 
-.form-control:focus {
-  color: var(--bs-body-color);
-  background-color: var(--bs-body-bg);
-  border: none !important;
-  outline: 0;
-  box-shadow: 0 0 0 2px var(--primary-color) !important;
+  .card-btn {
+    margin-top: 1rem;
+  }
+  
+  .card-overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .form-control:focus {
+    color: var(--bs-body-color);
+    background-color: var(--bs-body-bg);
+    border: none !important;
+    outline: 0;
+    box-shadow: 0 0 0 2px #9518bf !important;
 }
 
 .custom-modal {
-  width: 400px;
-  height: fit-content;
-  max-width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    width: 400px;
+    height: fit-content;
+    max-width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .custom-modal .modal-content {
-  height: 100%;
+    height: 100%;
 }
 
 .responsive-heading {
-  font-size: var(--font-size-heading); /* Default for mobile */
+    font-size: 24px; /* Default for mobile */
 }
 
 .card-skill {
-  background-color: #0D1117 !important;
-  width: var(--card-skill-size);
-  height: var(--card-skill-size);
-  border-radius: 16px;
-  margin-bottom: 10px;
-  flex: 0 0 auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    background-color: #0D1117 !important;
+    width: 160px; /* Fixed width for larger screens */
+    height: 160px; /* Fixed height for larger screens */
+    border-radius: 16px;
+    margin-bottom: 10px;
+    flex: 0 0 auto; /* Prevents cards from growing or shrinking */
+    display: flex; /* Ensures content can be centered */
+    justify-content: center; /* Centers items horizontally */
+    align-items: center; /* Centers items vertically */
 }
 
 .icon-skill {
-  width: var(--icon-skill-size); 
-  height: var(--icon-skill-size);
+    width: 48px; 
+    height: 48px;
 }
 
 /* Responsive Styles */
 @media (max-width: 768px) {
-  .row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-  }
+    .row {
+        display: flex;
+        flex-wrap: wrap; /* Enables wrapping for smaller screens */
+        justify-content: center; /* Centers the items */
+    }
 
-  .col-6 {
-      flex: 0 0 50%;
-      max-width: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-  }
+    .col-6 {
+        flex: 0 0 50%; /* Two columns on mobile */
+        max-width: 50%; /* Ensures max width is 50% for two columns */
+        display: flex; /* Ensures that the content is centered */
+        justify-content: center; /* Centers the cards */
+        align-items: center; /* Aligns items vertically in the center */
+    }
 }
 
+/* Fallback for older browsers */
 @supports (-ms-ime-align: auto) {
-  .col-6 {
-      flex: 0 0 50%; 
-      max-width: 50%; 
-  }
+    .col-6 {
+        /* Adjustments for IE11 */
+        flex: 0 0 50%; 
+        max-width: 50%; 
+    }
 }
-
+  
 @media (max-width: 768px) {
-.flex-column-custom {
-  flex-direction: column !important;
-  align-items: center !important;
-}
+  .flex-column-custom {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
 }
 
 @media (min-width: 768px) {
-.responsive-heading {
-  font-size: var(--font-size-heading-lg);
-}
+  .responsive-heading {
+    font-size: 80px;
+  }
 }
 
 /* Custom checkbox styles */
 .form-check-input:checked {
-  background-color: var(--primary-color) !important;
+  background-color: #9518bf !important; /* Change the background color when checked */
   border: none;
 }
 
+/* Optional: Change the color of the checkbox when focused */
 .form-check-input:focus {
-  box-shadow: 0 0 0 0.2rem rgba(149, 24, 191, 0.5) !important;
-}
-
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 3px;
-  background-color: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-  background-color: var(--scrollbar-thumb-color);
-  border-radius: 6px;
+  box-shadow: 0 0 0 0.2rem rgba(149, 24, 191, 0.5) !important; /* Add a shadow for focus */
 }

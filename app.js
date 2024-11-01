@@ -52,9 +52,8 @@ function setupDynamicValidation() {
 
     form['userType'].addEventListener('change', function () {
         const companyDiv = document.getElementById('company-div');
-        const isRecruiter = this.value === 'recruiter';
-        form['companyName'].required = isRecruiter;
-        companyDiv.style.display = isRecruiter ? 'block' : 'none';
+        form['companyName'].required = this.value === 'recruiter';
+        companyDiv.style.display = this.value === 'recruiter' ? 'block' : 'none';
 
         toggleFieldsEnabled(form, this.value);
     });
@@ -64,9 +63,7 @@ function setupDynamicValidation() {
         validateField(e.target);
     });
 
-    form['userEmail'].addEventListener('input', e => 
-        applyValidationStyle(e.target, isPlausibleEmail(e.target.value))
-    );
+    form['userEmail'].addEventListener('input', e => applyValidationStyle(e.target, isPlausibleEmail(e.target.value)));
 
     const userMessageField = form['userMessage'];
     userMessageField.addEventListener('input', e => {
@@ -74,14 +71,15 @@ function setupDynamicValidation() {
         updateMessageCounter(e.target.value.length);
     });
 
-    form['companyName'].addEventListener('input', e => {
-        const isValid = form['userType'].value !== 'recruiter' || validateField(e.target);
-        applyValidationStyle(e.target, isValid && e.target.value.trim().length > 0);
-    });
-
+    if (form['companyName']) {
+        form['companyName'].addEventListener('input', e => {
+            const isValid = form['userType'].value === 'recruiter' ? validateField(e.target) : true;
+            applyValidationStyle(e.target, isValid);
+        });
+    }
+    
     updateMessageCounter(0); // Initialize the message counter
 }
-
 
 function updateMessageCounter(currentLength) {
     const counterElement = document.getElementById('message-counter');
@@ -136,39 +134,9 @@ function resetSendButton(sendButton) {
 
 function sendEmailUsingSMTP(formData, sendButton) {
     const subject = "FORM PORTFOLIO: Hire Me Inquiry";
-    const emailBody = `
-    <html>
-      <body>
-        <table style="width:100%; border-collapse: collapse;">
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Name:</strong></td>
-            <td style="padding: 8px; border: 1px solid #ddd;">${formData.userName}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Email:</strong></td>
-            <td style="padding: 8px; border: 1px solid #ddd;">${formData.userEmail}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ddd;"><strong>User Type:</strong></td>
-            <td style="padding: 8px; border: 1px solid #ddd;">${formData.userType || 'N/A'}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Message:</strong></td>
-            <td style="padding: 8px; border: 1px solid #ddd;">${formData.userMessage}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Company:</strong></td>
-            <td style="padding: 8px; border: 1px solid #ddd;">${formData.companyName || 'N/A'}</td>
-          </tr>
-          <tr>
-            <td style="padding: 8px; border: 1px solid #ddd;"><strong>Options:</strong></td>
-            <td style="padding: 8px; border: 1px solid #ddd;">${formData.options || 'None'}</td>
-          </tr>
-        </table>
-      </body>
-    </html>
-  `;
-  
+    const emailBody = `Name: ${formData.userName}<br>Email: ${formData.userEmail}<br>Message: ${formData.userMessage}<br>` +
+                      `Company: ${formData.companyName || 'N/A'}<br>Options: ${formData.options || 'None'}`;
+
     // Show loading state
     updateSendButton(sendButton, "", true);
 
