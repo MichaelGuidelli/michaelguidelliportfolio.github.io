@@ -124,8 +124,12 @@ function updateSendButton(sendButton, text, showLoader = false) {
 
 function resetSendButton(sendButton) {
     sendButton.innerHTML = `
-        Let's get started 
-        <img class="mb-0 ms-2" style="width: 20px; height: 20px;" src="./assets/icons/send-icon.png" alt="">`; // Default state
+    <div class="svg-wrapper-1">
+            <div class="svg-wrapper">
+                <img class="mb-0 ms-2" style="width: 28px; height: 28px;" src="./assets/icons/send-icon.png" alt="">
+            </div>
+        </div>
+        <span>Send</span>`; // Default state
 }
 
 function sendEmailUsingSMTP(formData, sendButton) {
@@ -145,13 +149,13 @@ function sendEmailUsingSMTP(formData, sendButton) {
     }).then(
         (message) => {
             if (message === "OK") {
-                updateSendButton(sendButton, "Message Sent");
+                updateSendButton(sendButton, "Sent");
                 resetForm();
             } else {
-                updateSendButton(sendButton, "Failed to Send Message");
+                updateSendButton(sendButton, "Error");
             }
         },
-        () => updateSendButton(sendButton, "Failed to Send Message")
+        () => updateSendButton(sendButton, "Error")
     ).finally(() => {
         setTimeout(() => resetSendButton(sendButton), 3000);
     });
