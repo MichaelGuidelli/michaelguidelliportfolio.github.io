@@ -1,10 +1,29 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@font-face {
+  font-family: "satoshi-bold";
+  src: url("./assets/Satoshi_Complete/Fonts/OTF/Satoshi-Bold.otf");
+}
+
+@font-face {
+  font-family: "satoshi-regular";
+  src: url("./assets/Satoshi_Complete/Fonts/OTF/Satoshi-Regular.otf");
+}
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Inter", sans-serif;
+    font-family: "satoshi-regular";
+
+}
+
+h1.responsive-heading {
+  font-family: "satoshi-bold";
+  line-height: 1; 
+  letter-spacing: -0.5px;
+}
+
+h2 {
+  font-family: "satoshi-bold";
 }
 
 a {
